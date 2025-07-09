@@ -13,8 +13,8 @@ async function getTodos() {
   }
 }
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PATCH(request: Request, context: { params: { id: string } }) {
+  const { id } = context.params;
   const updatedFields = await request.json();
   const todos = await getTodos();
 
@@ -31,8 +31,8 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   return NextResponse.json({ message: 'To-do updated successfully', todo: todos[todoIndex] });
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(request: Request, context: { params: { id: string } }) {
+  const { id } = context.params;
   let todos = await getTodos();
 
   const initialLength = todos.length;
