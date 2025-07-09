@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -13,7 +13,7 @@ async function getTodos() {
   }
 }
 
-export async function PATCH(request: Request, context: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, context: { params: { id: string } }) {
   const { id } = context.params;
   const updatedFields = await request.json();
   const todos = await getTodos();
@@ -31,7 +31,7 @@ export async function PATCH(request: Request, context: { params: { id: string } 
   return NextResponse.json({ message: 'To-do updated successfully', todo: todos[todoIndex] });
 }
 
-export async function DELETE(request: Request, context: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
   const { id } = context.params;
   let todos = await getTodos();
 
